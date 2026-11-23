@@ -50,6 +50,30 @@ enum PatchProjectLibrary {
         return root
     }
 
+    /// Stores a password-protected package before its password is known so it
+    /// shows up in Installed as a locked item instead of disappearing when the
+    /// password sheet is cancelled or the wrong password is entered.
+    @discardableResult
+    static func saveLockedPackage(
+        data: Data,
+        summary: PatchPackageSummary,
+        existingURL: URL? = nil,
+        fileManager: FileManager = .default
+    ) throws -> URL {
+        let destination: URL
+        if let existingURL {
+            destination = existingURL
+        } else {
+            let root = try packageRootURL(fileManager: fileManager)
+            destination = root.appendingPathComponent(
+                summary.packageID.uuidString + ".3105",
+                isDirectory: false
+            )
+        }
+        try data.write(to: destination, options: [.atomic, .completeFileProtection])
+        return destination
+    }
+
     static func backupRootURL(fileManager: FileManager = .default) throws -> URL {
         let root = try packageRootURL(fileManager: fileManager)
             .appendingPathComponent("Backups", isDirectory: true)
