@@ -1,0 +1,65 @@
+name: Build unsigned IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build 3105 Lite (unsigned IPA)
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate --spec project.yml
+
+      - name: Build archive (no signing)
+        env:
+          ARCHIVE_PATH: ${{ runner.temp }}/3105Lite.xcarchive
+        run: |
+          xcodebuild \
+            -project 3105Lite.xcodeproj \
+            -scheme 3105Lite \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$ARCHIVE_PATH" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_STYLE=Manual \
+            clean archive
+
+      - name: Package unsigned IPA
+        env:
+          ARCHIVE_PATH: ${{ runner.temp }}/3105Lite.xcarchive
+        run: |
+          set -euo pipefail
+          APP="$ARCHIVE_PATH/Products/Applications/3105Lite.app"
+          test -d "$APP"
+          rm -rf Payload
+          mkdir -p Payload
+          cp -R "$APP" Payload/
+          zip -qry 3105Lite-unsigned.ipa Payload
+          shasum -a 256 3105Lite-unsigned.ipa | tee 3105Lite-unsigned.ipa.sha256
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: 3105Lite-unsigned-IPA
+          path: |
+            3105Lite-unsigned.ipa
+            3105Lite-unsigned.ipa.sha256
+          if-no-files-found: error
+          retention-days: 30
