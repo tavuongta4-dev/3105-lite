@@ -76,7 +76,6 @@
 		3105E203 /* CleanerSafetyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E103; };
 		3105E204 /* CleanerHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E104; };
 		3105E205 /* CleanerMeasureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E105; };
-		3105E206 /* BackupTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E106; };
 		3105E208 /* RiskConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E108; };
 		3105E209 /* ContainerSizeMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E109; };
 		3105E20A /* ScanDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E10A; };
@@ -89,8 +88,6 @@
 		3105E211 /* SupervisedModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E111; };
 		3105E212 /* AppSaveBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E112; };
 		3105E213 /* SupervisedModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E113; };
-		3105E214 /* AppSaveBackupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E114; };
-		3105E215 /* FullBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E115; };
 		3105E216 /* ActivityHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E116; };
 		3105E217 /* AltStoreSourceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E117; };
 		3105E218 /* BackendNoticeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105E118; };
@@ -130,7 +127,6 @@
 		3105L204 /* RepositorySourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105L104; };
 		3105L205 /* RepositoryPresentationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105L105; };
 		3106B200 /* BackupCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106B100; };
-		3106B201 /* BackupCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106B101; };
 		3106H201 /* FeatureHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106H101; };
 		3106P200 /* Pathleak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106P100; };
 		3106P201 /* ScanCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106P101; };
@@ -746,7 +742,6 @@
 				3105E203,
 				3105E204,
 				3105E205,
-				3105E206,
 				3105E208,
 				3105E209,
 				3105E20A,
@@ -759,8 +754,6 @@
 				3105E211,
 				3105E212,
 				3105E213,
-				3105E214,
-				3105E215,
 				3105E216,
 				3105E217,
 				3105E218,
@@ -791,7 +784,6 @@
 				3105L204,
 				3105L205,
 				3106B200,
-				3106B201,
 				3106H201,
 				3106P200,
 				3106P201,

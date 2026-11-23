@@ -110,7 +110,7 @@ struct FeatureVisibility: Equatable {
         // Fixed product shape: 功能 / 文件 / 搜索 / 清理 / 备份. Wallpapers,
         // repository and patch entry points live inside the feature hub
         // instead of the tab bar.
-        [.home, .files, .search, .cleaner, .backup]
+        [.home, .files, .search, .cleaner]
     }
 
     func isVisible(_ section: AppSection) -> Bool {

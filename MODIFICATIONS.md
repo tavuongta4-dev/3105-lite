@@ -21,5 +21,13 @@ Changes made by this repository:
 4. Preserved the earlier standalone SwiftUI implementation under `legacy-lite/` for
    reference. It is not part of the Xcode project and is not compiled.
 
+5. Removed the user-facing backup features as requested: the Backup tab, the two
+   backup cards in the feature hub, the Settings entry, and the source files
+   `BackupTabView.swift`, `BackupCenterView.swift`, `AppSaveBackupView.swift` and
+   `FullBackupService.swift` (including their Xcode project references).
+   `BackupCenter`, `AppSaveBackupService` and `BackupMetadataPolicy` were kept
+   because patch apply/restore and file replacement depend on their internal
+   snapshot machinery — only the standalone backup UI/module was removed.
+
 No exploit, sandbox, or container-access code was altered. Upstream attribution and
 all third-party notices remain in `NOTICE.md`.

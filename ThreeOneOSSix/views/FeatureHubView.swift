@@ -194,32 +194,12 @@ struct FeatureHubView: View {
                     }
 
                     NavigationLink {
-                        BackupCenterView()
-                    } label: {
-                        card(
-                            "home.card.backups",
-                            detail: "home.card.backups_detail",
-                            icon: "externaldrive.fill"
-                        )
-                    }
-
-                    NavigationLink {
                         WiFiShareView()
                     } label: {
                         card(
                             "home.card.wifishare",
                             detail: "home.card.wifishare_detail",
                             icon: "wifi"
-                        )
-                    }
-
-                    NavigationLink {
-                        AppSaveBackupView()
-                    } label: {
-                        card(
-                            "home.card.savebackups",
-                            detail: "home.card.savebackups_detail",
-                            icon: "arrow.down.doc.fill"
                         )
                     }
 

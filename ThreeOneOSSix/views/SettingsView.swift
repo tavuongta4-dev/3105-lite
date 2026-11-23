@@ -81,15 +81,6 @@ struct SettingsView: View {
 
                 Section {
                     NavigationLink {
-                        BackupCenterView()
-                    } label: {
-                        Label(
-                            language.text("backup.title"),
-                            systemImage: "externaldrive.badge.timemachine"
-                        )
-                    }
-
-                    NavigationLink {
                         AcknowledgementsView()
                     } label: {
                         Label(
