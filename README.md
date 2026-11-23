@@ -1,137 +1,50 @@
-# 3105 Lite
+# 3105 Lite (nền 3106)
 
-App iOS (SwiftUI) quản lý patch `.3105` theo hướng tối giản, lấy cảm hứng từ [3105](https://github.com/YangJiiii/3105) (GPL-3.0). Tập trung đúng 5 yêu cầu:
+iOS app quản lý dữ liệu ứng dụng, patch `.3105`/`.3106`, file, dọn dẹp và hơn thế nữa — xây dựng từ nguồn [QuinnTang74/3106](https://github.com/QuinnTang74/3106) (GPL-3.0, bản 3.2.8), đã đổi tên/bundle ID sang `3105 Lite` / `com.patchlite.app`.
 
-1. Đọc tệp `.3105` / `.3106` legacy **schema v1** (có hoặc không có mật khẩu; cũng hỗ trợ v2, v3 của 3106).
-2. Dán **path đích** để áp patch.
-3. **Khôi phục file gốc cực nhanh** (thường < 0,1 giây; hiển thị thời gian thực tế).
-4. **Lưu lịch sử path** đã dùng.
-5. Build IPA **trên GitHub Actions**, bạn chỉ việc push bằng GitHub Desktop.
+> ⚠️ Chỉ dùng trên thiết bị và dữ liệu bạn sở hữu. Luôn sao lưu trước khi thay đổi dữ liệu ứng dụng.
 
-> ⚠️ Chỉ dùng trên thiết bị và dữ liệu bạn sở hữu. Luôn sao lưu trước khi áp patch. App không chứa exploit/jailbreak; một số container hệ thống có thể không ghi được nếu thiếu entitlements.
+## Tại sao chuyển sang nền 3106
 
----
+Bản SwiftUI tự viết trước đó (giữ trong `legacy-lite/`) chỉ là trình quản lý patch offline: nó không có exploit nên **không liệt kê được container app**. 3106 có chuỗi truy cập thật:
 
-## 1. Cấu trúc dự án
+| iOS | Backend | Yêu cầu |
+|---|---|---|
+| 17.0–18.7.1 | kernel chain | bấm **Unlock** lần đầu |
+| 26.0–26.6.1 | `bad_query` | — |
+| 26.7–27.2 / 27.3 beta 1 | `worse_query` | **App Group entitlement** |
 
-```
-.
-├── .github/workflows/build-ipa.yml   # GitHub Actions → unsigned IPA
-├── project.yml                       # XcodeGen spec (không cần commit .xcodeproj)
-├── App/
-│   ├── 3105LiteApp.swift
-│   ├── Info.plist
-│   ├── Assets.xcassets/
-│   ├── Models/PatchModels.swift
-│   ├── Core/
-│   │   ├── PatchPackageCodec.swift   # giải mã .3105 v1/v2 + mật khẩu
-│   │   ├── KeychainStore.swift       # lưu content key → restore không cần nhập lại pass
-│   │   ├── PathHistoryStore.swift    # lịch sử path
-│   │   └── PatchFileEngine.swift     # apply / backup / restore
-│   ├── State/AppState.swift
-│   └── Views/*.swift
-└── Tools/make_sample_patch.swift      # tạo .3105 v1 để test (chạy trên macOS)
-```
+Không có “pairing file” nào — App Group được công cụ ký (AltStore / SideStore / Sideloadly / Apple ID) tự tạo và app đọc lúc chạy. Ký bằng wildcard `.p12` → `worse_query` báo “No App Group”.
 
-### Cách hoạt động của path đích
+## Tính năng chính
 
-Mỗi quy tắc trong patch có `bundleID`, `relativePath` và `replacementFilename`. App ghép:
+- Duyệt dữ liệu ứng dụng theo bundle ID (Application / App Group), tìm kiếm, mở thư mục, xem/sửa file.
+- Patch `.3105` / `.3106` schema v1–v3, có/không mật khẩu; áp dụng, sao lưu và khôi phục.
+- Thay thế file tùy ý, backup, restore, preset.
+- Cleaner, wallpaper `.tendies`, dialer theme, MobileGestalt, region, v.v. (xem CHANGELOG của upstream).
+
+## Build IPA trên GitHub
+
+1. Push lên `main` (hoặc vào Actions → **Run workflow**).
+2. Workflow `Build unsigned IPA` chạy trên `macos-15`, build `ThreeOneOSSix.xcodeproj` / scheme `3106` với `CODE_SIGNING_ALLOWED=NO`.
+3. Tải artifact `3105Lite-unsigned-IPA` → `3105Lite-unsigned.ipa`.
+4. Ký lại bằng ESign/AltStore/SideStore với **App Group capability**, cài lên máy.
+
+Release công khai: https://github.com/tavuongta4-dev/3105-lite/releases
+
+## Cấu trúc
 
 ```
-<path đích bạn dán> / <relativePath> / <replacementFilename>
+ThreeOneOSSix/            # mã nguồn 3106 đã đổi tên (App, exploit, kexploit, helpers, views)
+ThreeOneOSSix.xcodeproj/  # project gốc của 3106 (giữ nguyên cấu hình build exploit)
+Tests/                    # policy tests của upstream
+Tools/                    # tiện ích tạo patch mẫu
+docs/                     # tài liệu upstream + PATCH_FORMAT.md
+legacy-lite/              # bản SwiftUI cũ (không biên dịch)
+LICENSE, NOTICE.md        # GPL-3.0 và attribution của upstream
+MODIFICATIONS.md          # liệt kê các thay đổi của repo này
 ```
 
-Ví dụ: dán `/private/var/mobile/Containers/Data/Application/XXXX/Documents` rồi patch có `relativePath = "config"` và file `settings.json` → ghi vào `.../Documents/config/settings.json`.
+## Giấy phép
 
-- Trước khi ghi, app **copy file gốc** vào `Application Support/PatchEngine/Backups/<transaction>/`.
-- Nhấn **Khôi phục ngay** → copy các bản sao về đúng chỗ, xóa file patch thêm mới, dọn thư mục rỗng do patch tạo. Không giải mã lại gói, không nhập lại mật khẩu.
-
----
-
-## 2. Push dự án lên GitHub bằng GitHub Desktop
-
-1. Vào [github.com/new](https://github.com/new) → tạo repo mới, ví dụ `3105-lite`.
-   - Chọn **Public** hoặc **Private** đều được.
-   - **Không** tick “Add a README file” (repo phải trống).
-2. Mở **GitHub Desktop** → `File → Add Local Repository…` → chọn thư mục này (nếu Desktop báo “not a Git repository”, bấm **Create a repository** tại đây).
-3. Ở khung **Summary** gõ `Initial 3105 Lite source` → bấm **Commit to main**.
-4. Bấm **Publish repository** → chọn đúng owner/name `3105-lite` → **Publish**.
-   - Nếu repo đã tạo trên web: bấm **Publish repository** rồi chọn repo đó; hoặc dùng `git remote add origin https://github.com/<you>/3105-lite.git` trong tab Terminal của Desktop.
-5. Mỗi lần sửa code: commit trong GitHub Desktop rồi bấm **Push origin**.
-
-> Nhánh kích hoạt build: `main` hoặc `master`. Nếu bạn dùng tên nhánh khác, sửa dòng `branches:` trong `.github/workflows/build-ipa.yml`.
-
----
-
-## 3. Build IPA trên GitHub
-
-1. Sau khi push, vào repo trên web → tab **Actions**.
-2. Chọn workflow **Build unsigned IPA** → bấm **Run workflow** (hoặc push cũng tự chạy).
-3. Đợi ~3–6 phút. Vào run vừa tạo → phần **Artifacts** → tải `3105Lite-unsigned-IPA`.
-4. Giải nén được `3105Lite-unsigned.ipa` + file `.sha256` để kiểm tra checksum.
-
-### Ký lại IPA
-
-IPA được build **unsigned**. Dùng ESign / enterprise certificate để ký lại:
-
-- Bundle identifier: `com.patchlite.app` (có thể đổi trong `project.yml` → `PRODUCT_BUNDLE_IDENTIFIER`).
-- Tên app hiển thị: `3105 Lite`.
-- Không hỗ trợ SideStore / AltStore / 3uTools / LiveContainer nếu bạn cần quyền truy cập container thật.
-
----
-
-## 3b. Nhập patch cũ khi file không chọn được trong picker
-
-- Tab **Ứng dụng** liệt kê dữ liệu ứng dụng theo **bundle ID** (giống 3105), có ô tìm kiếm, hai chế độ Application / App Group. Chạm vào một app để duyệt thư mục dữ liệu, rồi bấm **Dùng làm path đích**.
-- Nếu file `.3105` nằm trong trình duyệt Tệp của 3105: chọn file → **Chia sẻ** → chọn **3105 Lite** (app đã đăng ký mở tệp `.3105`).
-- Nếu vẫn lỗi, tab **Patch** có phần **Chẩn đoán tệp** hiện đuôi file, kích thước và 10 byte đầu để đối chiếu magic `3105PATCH\0`.
-- **Lưu ý quan trọng**: 3106 đăng ký làm chủ UTI `.3105`/`.3106`, nên nút Share có thể không hiện 3105 Lite. Cách chắc chắn nhất: trong Files app, copy tệp patch vào thư mục **3105 Lite** (mục “On My iPhone”), rồi mở app — phần **Tệp trong Documents** sẽ liệt kê và bạn chạm để import.
-- Trên iOS 17–18, quyền đọc container hệ thống phụ thuộc vào cách ký/entitlements; khi không đọc được, app vẫn liệt kê app đã cài và bạn dán path đích thủ công.
-
-### Vì sao tab Ứng dụng có thể vẫn trống
-
-Khác với 3106 (dùng 0day `bad_query`/`worse_query` hoặc kernel chain + **App Group entitlement** để đọc container), 3105 Lite không chứa exploit và không có cơ chế “pairing file”. Vì vậy trên thiết bị của bạn tab Ứng dụng có thể chỉ liệt kê app đã cài (không có path). Để có màn hình duyệt file thật như 3106, cần port toàn bộ chuỗi exploit + đổi bundle ID/App Group — mình có thể làm nếu bạn xác nhận, nhưng đó là thay đổi lớn.
-
-## 4. Tạo patch mẫu để test
-
-Trên máy có Swift (macOS):
-
-```bash
-# không mật khẩu
-swift Tools/make_sample_patch.swift sample.3105
-
-# có mật khẩu
-swift Tools/make_sample_patch.swift locked.3105 "mat-khau"
-```
-
-Sau đó:
-- Mở app → **Chọn tệp .3105** → chọn file vừa tạo.
-- Nếu có mật khẩu → nhập `mat-khau` → patch được mở và khóa được lưu vào Keychain.
-- Dán một thư mục tồn tại (ví dụ tạo thư mục trên thiết bị qua Files) vào ô **Path đích** → **Áp dụng patch**.
-- Vào tab **Khôi phục** → **Khôi phục ngay** để xem thời gian thực thi.
-
-Bạn cũng có thể copy file `.3105` vào app qua **Files → On My iPhone → 3105 Lite** (đã bật `UIFileSharingEnabled`).
-
----
-
-## 5. Đổi tên / bundle ID / phiên bản
-
-Sửa trong `project.yml`:
-
-```yaml
-PRODUCT_BUNDLE_IDENTIFIER: com.patchlite.app
-```
-
-Sửa `CFBundleShortVersionString` / `CFBundleVersion` trong `App/Info.plist`.
-
-Muốn đổi tên target, sửa `name:` và `targets:` trong `project.yml` **và** `-project`, `-scheme`, tên `.app` trong `.github/workflows/build-ipa.yml`.
-
----
-
-## 6. Chi tiết kỹ thuật
-
-Xem [docs/PATCH_FORMAT.md](docs/PATCH_FORMAT.md) cho mô tả nhị phân của `.3105` v1/v2 (magic, Envelope, AES-GCM AAD, PBKDF2, digests).
-
-## License
-
-Mã nguồn tự viết cho dự án này. Phần định dạng `.3105` được suy ra từ dự án [3105](https://github.com/YangJiiii/3105) (GPL-3.0) để tương thích; vui lòng giữ ghi nhận nếu bạn phát hành lại.
+GPL-3.0. Toàn bộ bản quyền và thông báo của upstream cùng các thành phần bên thứ ba nằm trong `LICENSE` và `NOTICE.md`. Các thay đổi được liệt kê trong `MODIFICATIONS.md`.
