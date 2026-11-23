@@ -37,10 +37,13 @@ Changes made by this repository:
    The backend/App Group status section was kept because it is required to
    diagnose sandbox access.
 
-7. At the user's request, the bundle identifier was changed to
-   `com.apple.mobile.MobileHouseArrest` (the original 3105 host identity). The
-   App Group entitlement placeholder is a neutral `group.3105lite.patch` so a
-   signer can replace it with a real group.
+7. The bundle identifier was briefly changed to
+   `com.apple.mobile.MobileHouseArrest` at the user's request, but reverted to
+   `com.patchlite.app`: the `com.apple.*` prefix is reserved by Apple and
+   prevented signing tools from creating an App Group, which made
+   `worse_query` fail with `grant=-4` (App Group container swap failure).
+   The App Group entitlement placeholder is a neutral `group.3105lite.patch`
+   so a signer can replace it with a real group.
 8. The single remaining feature card now uses the `tab.installed` title
    ("Đã Cài") but still opens `PatchProjectsView`. Its detail text and the
    import button mention `.3105 / .3106`, and `.3105` is now the preferred

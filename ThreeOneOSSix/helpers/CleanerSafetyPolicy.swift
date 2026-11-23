@@ -40,7 +40,7 @@ enum CleanerSafetyPolicy {
     /// Bundle IDs the cleaner must never select or clean (port of Erosion's
     /// protectedBundleIDs, extended for 3106).
     static let protectedBundleIDs: Set<String> = [
-        "com.apple.mobile.MobileHouseArrest",
+        "com.patchlite.app",
         "com.apple.springboard",
         "com.apple.Preferences",
         "com.apple.mobilephone",
