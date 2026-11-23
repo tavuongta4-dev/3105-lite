@@ -397,7 +397,7 @@
 "browser.error_exists" = "같은 이름의 항목이 이미 있습니다.";
 "sandbox.error.no_app_group" = "샌드박스 권한을 사용할 수 없습니다: 앱에 App Group 권한이 없습니다(재서명 시 App Groups를 유지하세요).";
 "sandbox.error.query_api" = "샌드박스 권한을 사용할 수 없습니다: 시스템의 컨테이너 쿼리 API 호출이 실패했습니다.";
-"sandbox.error.swap_failed" = "샌드박스 권한을 사용할 수 없습니다: 앱 그룹 컨테이너를 준비할 수 없습니다(Library/Caches 교체 실패).";
+"sandbox.error.swap_failed" = "샌드박스 권한을 사용할 수 없습니다: 앱 그룹 컨테이너를 준비할 수 없습니다(Library/Caches). App Groups가 있는 App ID로 다시 서명한 뒤 설정 → 액세스 캐시 재설정을 시도하세요.";
 "sandbox.error.token" = "샌드박스 권한을 사용할 수 없습니다: 시스템이 접근 토큰을 발급하지 않았습니다.";
 "sandbox.error.token_unopenable" = "샌드박스 권한을 사용할 수 없습니다: 접근 토큰으로 대상 경로를 열 수 없습니다.";
 "sandbox.error.token_read_only" = "샌드박스 권한을 사용할 수 없습니다: 시스템이 읽기 전용 토큰을 발급했습니다. 쓰기가 거부됩니다.";

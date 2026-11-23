@@ -215,7 +215,7 @@ enum SandboxAccess {
             handle = writable ? worse_query_grant_ex(&pathC, 1) : worse_query_grant(&pathC)
             // -5 = the App Group's Library/Caches is in a state the swap
             // cannot start from. Repair once (throttled) and ask again.
-            if handle == -5, repairAccessCacheIfNeeded() {
+            if (handle == -5 || handle == -4), repairAccessCacheIfNeeded() {
                 pathC = clean.utf8CString.map { Int8($0) }
                 handle = writable ? worse_query_grant_ex(&pathC, 1) : worse_query_grant(&pathC)
             }

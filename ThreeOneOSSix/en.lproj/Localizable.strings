@@ -412,7 +412,7 @@
 "browser.error_exists" = "An item with this name already exists.";
 "sandbox.error.no_app_group" = "Sandbox grant unavailable: the app is missing its App Group entitlement (keep App Groups when re-signing).";
 "sandbox.error.query_api" = "Sandbox grant unavailable: the system's container query API call failed.";
-"sandbox.error.swap_failed" = "Sandbox grant unavailable: the app group container could not be prepared (Library/Caches swap failed).";
+"sandbox.error.swap_failed" = "Sandbox grant unavailable: the App Group container could not be prepared (Library/Caches swap). Re-sign with AltStore/SideStore/Sideloadly or an App ID with App Groups, then try Settings → Reset Access Cache.";
 "sandbox.error.token" = "Sandbox grant unavailable: the system did not issue an access token.";
 "sandbox.error.token_unopenable" = "Sandbox grant unavailable: the access token cannot open the target path.";
 "sandbox.error.token_read_only" = "Sandbox grant unavailable: the system issued a read-only token; writes will be denied.";

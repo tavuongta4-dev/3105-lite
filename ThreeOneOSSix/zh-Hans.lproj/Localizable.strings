@@ -412,7 +412,7 @@
 "browser.error_exists" = "已存在同名项目。";
 "sandbox.error.no_app_group" = "沙盒授权不可用：应用缺少 App Group 权限（重新签名时请保留 App Groups）。";
 "sandbox.error.query_api" = "沙盒授权不可用：系统的容器查询接口调用失败。";
-"sandbox.error.swap_failed" = "沙盒授权不可用：无法准备应用组容器（Library/Caches 交换失败）。";
+"sandbox.error.swap_failed" = "沙盒授权不可用：无法准备应用组容器（Library/Caches）。请用带 App Groups 的 App ID 重新签名，然后尝试 设置 → 重置访问缓存。";
 "sandbox.error.token" = "沙盒授权不可用：系统未签发访问令牌。";
 "sandbox.error.token_unopenable" = "沙盒授权不可用：访问令牌无法打开目标路径。";
 "sandbox.error.token_read_only" = "沙盒授权不可用：系统签发了只读令牌，写入将被拒绝。";

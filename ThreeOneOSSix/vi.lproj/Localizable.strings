@@ -412,7 +412,7 @@
 "browser.error_exists" = "Đã có một mục trùng tên.";
 "sandbox.error.no_app_group" = "Ứng dụng không thể cấp quyền sandbox: thiếu quyền App Group (hãy giữ App Groups khi ký lại).";
 "sandbox.error.query_api" = "Ứng dụng không thể cấp quyền sandbox: lời gọi API truy vấn vùng chứa của hệ thống thất bại.";
-"sandbox.error.swap_failed" = "Ứng dụng không thể cấp quyền sandbox: không thể chuẩn bị vùng chứa nhóm ứng dụng (hoán đổi Library/Caches thất bại).";
+"sandbox.error.swap_failed" = "Ứng dụng không thể cấp quyền sandbox: không thể chuẩn bị vùng chứa nhóm (Library/Caches). Ký lại bằng AltStore/SideStore/Sideloadly hoặc App ID có App Groups, rồi thử Settings → Reset Access Cache.";
 "sandbox.error.token" = "Ứng dụng không thể cấp quyền sandbox: hệ thống không cấp mã truy cập.";
 "sandbox.error.token_unopenable" = "Ứng dụng không thể cấp quyền sandbox: mã truy cập không thể mở đường dẫn đích.";
 "sandbox.error.token_read_only" = "Ứng dụng không thể cấp quyền sandbox: hệ thống cấp mã chỉ đọc; việc ghi sẽ bị từ chối.";
