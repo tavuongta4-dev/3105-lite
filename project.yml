@@ -20,9 +20,6 @@ targets:
       - path: App
         excludes:
           - Info.plist
-          - Assets.xcassets
-    resources:
-      - path: App/Assets.xcassets
     settings:
       base:
         PRODUCT_NAME: 3105Lite
