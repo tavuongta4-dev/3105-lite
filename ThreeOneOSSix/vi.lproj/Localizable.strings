@@ -101,7 +101,7 @@
 "patch.title" = "Patch";
 "patch.add" = "Thêm dự án patch";
 "patch.new" = "Tạo patch";
-"patch.import" = "Nhập .3106";
+"patch.import" = "Nhập .3105 / .3106";
 "patch.export" = "Xuất .3106";
 "patch.edit" = "Sửa";
 "patch.empty_title" = "Chưa có dự án patch";
@@ -512,7 +512,7 @@
 /* Kho gói */
 "tab.explore" = "Khám phá";
 "tab.sources" = "Nguồn";
-"tab.installed" = "Đã cài";
+"tab.installed" = "Đã Cài";
 "installed.search" = "Tìm patch hoặc hình nền";
 "installed.empty_title" = "Chưa có nội dung";
 "installed.empty_message" = "Nhập patch .3106 hoặc gói hình nền .tendies để bắt đầu.";
@@ -745,7 +745,7 @@
 "home.section.data" = "Dữ liệu và công cụ";
 "home.section.about" = "Giới thiệu";
 "home.card.patches" = "Dự án bản vá";
-"home.card.patches_detail" = "Tạo, nhập và áp dụng bản vá .3106";
+"home.card.patches_detail" = "Tạo, nhập và áp dụng bản vá .3105 / .3106";
 "home.card.market" = "Chợ nguồn";
 "home.card.market_detail" = "Duyệt gói mới và cập nhật";
 "home.card.sources" = "Nguồn gói";

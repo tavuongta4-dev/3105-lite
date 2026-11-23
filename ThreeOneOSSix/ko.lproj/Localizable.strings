@@ -95,7 +95,7 @@
 "patch.title" = "패치";
 "patch.add" = "패치 프로젝트 추가";
 "patch.new" = "새 패치";
-"patch.import" = ".3106 가져오기";
+"patch.import" = "Import .3105 / .3106";
 "patch.export" = ".3106 내보내기";
 "patch.edit" = "편집";
 "patch.empty_title" = "패치 프로젝트 없음";

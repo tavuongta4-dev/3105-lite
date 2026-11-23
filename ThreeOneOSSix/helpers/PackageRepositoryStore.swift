@@ -426,7 +426,7 @@ final class PackageRepositoryStore: ObservableObject {
         ]
         sources = [source]
         repositories[source.id] = PackageRepository(
-            identifier: "com.patchlite.app.preview",
+            identifier: "com.apple.mobile.MobileHouseArrest.preview",
             name: "3106 Preview",
             summary: "Simulator-only marketplace preview",
             iconURL: nil,

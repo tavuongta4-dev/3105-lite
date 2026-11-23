@@ -5,10 +5,15 @@ import UniformTypeIdentifiers
 private enum PatchPackagePickerPolicy {
     // Export uses the new .3106 extension; .3105 stays importable so existing
     // patch repositories keep working.
-    static let packageType = UTType(filenameExtension: "3106")
-        ?? UTType(filenameExtension: "3105")
-        ?? .data
-    static let allowedContentTypes: [UTType] = [packageType, .data]
+    static let legacyType = UTType(filenameExtension: "3105")
+    static let packageType = UTType(filenameExtension: "3106") ?? legacyType ?? .data
+    static let allowedContentTypes: [UTType] = {
+        var types: [UTType] = []
+        if let legacyType { types.append(legacyType) }
+        types.append(packageType)
+        types.append(.data)
+        return types
+    }()
     static let copiesSelectedDocument = true
 }
 

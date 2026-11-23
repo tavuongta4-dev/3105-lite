@@ -42,7 +42,7 @@ struct FeatureHubView: View {
                         )
                     } label: {
                         card(
-                            "home.card.patches",
+                            "tab.installed",
                             detail: "home.card.patches_detail",
                             icon: "square.stack.3d.up.fill"
                         )

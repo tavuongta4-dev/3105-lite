@@ -17,7 +17,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.patchlite.app.patch-package</string>
+				<string>com.apple.mobile.MobileHouseArrest.patch-package</string>
 			</array>
 		</dict>
 		<dict>
@@ -29,14 +29,14 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.patchlite.app.config-package</string>
+				<string>com.apple.mobile.MobileHouseArrest.config-package</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.patchlite.app</string>
+	<string>com.apple.mobile.MobileHouseArrest</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -49,7 +49,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.patchlite.app.patch-import</string>
+			<string>com.apple.mobile.MobileHouseArrest.patch-import</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>threeoneossix</string>
@@ -101,7 +101,7 @@
 			<key>UTTypeDescription</key>
 			<string>3106 Patch Package</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.patchlite.app.patch-package</string>
+			<string>com.apple.mobile.MobileHouseArrest.patch-package</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -121,7 +121,7 @@
 			<key>UTTypeDescription</key>
 			<string>3106 Config Package</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.patchlite.app.config-package</string>
+			<string>com.apple.mobile.MobileHouseArrest.config-package</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
