@@ -80,6 +80,13 @@ IPA được build **unsigned**. Dùng ESign / enterprise certificate để ký 
 
 ---
 
+## 3b. Nhập patch cũ khi file không chọn được trong picker
+
+- Tab **Ứng dụng** liệt kê dữ liệu ứng dụng theo **bundle ID** (giống 3105), có ô tìm kiếm, hai chế độ Application / App Group. Chạm vào một app để duyệt thư mục dữ liệu, rồi bấm **Dùng làm path đích**.
+- Nếu file `.3105` nằm trong trình duyệt Tệp của 3105: chọn file → **Chia sẻ** → chọn **3105 Lite** (app đã đăng ký mở tệp `.3105`).
+- Nếu vẫn lỗi, tab **Patch** có phần **Chẩn đoán tệp** hiện đuôi file, kích thước và 10 byte đầu để đối chiếu magic `3105PATCH\0`.
+- Trên iOS 17–18, quyền đọc container hệ thống phụ thuộc vào cách ký/entitlements; khi không đọc được, app vẫn liệt kê app đã cài và bạn dán path đích thủ công.
+
 ## 4. Tạo patch mẫu để test
 
 Trên máy có Swift (macOS):

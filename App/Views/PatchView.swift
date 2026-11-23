@@ -45,6 +45,14 @@ struct PatchView: View {
             if let message = app.errorMessage {
                 Section { StatusBanner(message: message, isError: true) }
             }
+            if let diagnostic = app.importDiagnostic {
+                Section("Chẩn đoán tệp") {
+                    Text(diagnostic)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
+                }
+            }
             if let message = app.successMessage {
                 Section { StatusBanner(message: message, isError: false) }
             }
@@ -153,7 +161,7 @@ struct PatchView: View {
         .navigationTitle("3105 Lite")
         .fileImporter(
             isPresented: $showingImporter,
-            allowedContentTypes: [UTType(filenameExtension: "3105") ?? .data, .data],
+            allowedContentTypes: [.item],
             allowsMultipleSelection: false
         ) { result in
             switch result {

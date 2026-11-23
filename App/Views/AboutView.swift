@@ -25,6 +25,8 @@ struct AboutView: View {
                 Label("Dán path đích, tự ghép relativePath + tên file", systemImage: "checkmark.circle")
                 Label("Sao lưu file gốc và khôi phục cực nhanh", systemImage: "checkmark.circle")
                 Label("Lưu lịch sử path đã dùng", systemImage: "checkmark.circle")
+                Label("Duyệt Application / App Group theo bundle ID", systemImage: "checkmark.circle")
+                Label("Nhận patch qua Share sheet từ app khác", systemImage: "checkmark.circle")
             }
             .font(.subheadline)
 

@@ -13,6 +13,8 @@ final class AppState: ObservableObject {
     @Published var pathHistory: [PathRecord] = PathHistoryStore.load()
     @Published var transactions: [PatchTransaction] = PatchFileEngine.loadTransactions()
     @Published var lastRestoreDuration: TimeInterval?
+    @Published var importDiagnostic: String?
+    @Published var selectedTab = 0
 
     // MARK: Messages
 
@@ -27,10 +29,22 @@ final class AppState: ObservableObject {
         summary = nil
         decoded = nil
         needsPassword = false
+        importDiagnostic = nil
         clearMessages()
     }
 
     // MARK: Import / unlock
+
+    func importFile(at url: URL) {
+        let accessing = url.startAccessingSecurityScopedResource()
+        defer { if accessing { url.stopAccessingSecurityScopedResource() } }
+        do {
+            let data = try Data(contentsOf: url, options: .mappedIfSafe)
+            importPackage(data: data, fileName: url.lastPathComponent)
+        } catch {
+            errorMessage = "Không đọc được tệp: \(error.localizedDescription)"
+        }
+    }
 
     func importPackage(data: Data, fileName: String) {
         clearMessages()
@@ -53,6 +67,8 @@ final class AppState: ObservableObject {
                 needsPassword = true
             }
         } catch {
+            let magic = data.prefix(10).map { String(format: "%02x", $0) }.joined()
+            importDiagnostic = "Tệp: \(fileName) · \(data.count) bytes · đuôi: \((fileName as NSString).pathExtension) · 10 byte đầu: \(magic)"
             errorMessage = error.localizedDescription
         }
     }

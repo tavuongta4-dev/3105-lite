@@ -8,6 +8,10 @@ struct PatchLiteApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appState)
+                .onOpenURL { url in
+                    appState.importFile(at: url)
+                    appState.selectedTab = 0
+                }
         }
     }
 }
