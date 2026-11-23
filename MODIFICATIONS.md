@@ -29,5 +29,13 @@ Changes made by this repository:
    because patch apply/restore and file replacement depend on their internal
    snapshot machinery — only the standalone backup UI/module was removed.
 
+6. Trimmed `FeatureHubView` (the home "features" page) down to a single card:
+   Patch Projects. All other feature cards (MobileGestalt, keypad themes,
+   supervised mode, system settings, launch artwork, wallpapers, marketplace,
+   sources, files/search/cleaner shortcuts, sounds, Wi-Fi share, file replace,
+   migration, logs, respring, acknowledgements) were removed from that page.
+   The backend/App Group status section was kept because it is required to
+   diagnose sandbox access.
+
 No exploit, sandbox, or container-access code was altered. Upstream attribution and
 all third-party notices remain in `NOTICE.md`.
