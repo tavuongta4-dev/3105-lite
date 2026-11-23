@@ -6,6 +6,7 @@ struct PatchView: View {
     @EnvironmentObject var app: AppState
     @State private var showingImporter = false
     @State private var showingPassword = false
+    @State private var documentsFiles: [URL] = []
 
     var body: some View {
         List {
@@ -28,6 +29,24 @@ struct PatchView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+
+                if !documentsFiles.isEmpty {
+                    Section("Tệp trong Documents của 3105 Lite") {
+                        ForEach(documentsFiles, id: \.self) { url in
+                            Button {
+                                app.importFile(at: url)
+                            } label: {
+                                HStack {
+                                    Image(systemName: "doc.text")
+                                    Text(url.lastPathComponent)
+                                        .lineLimit(1)
+                                    Spacer()
+                                    Image(systemName: "arrow.down.circle")
+                                }
+                            }
+                        }
+                    }
+                }
 
                 if !app.importedFileName.isEmpty {
                     HStack {
@@ -159,6 +178,7 @@ struct PatchView: View {
             }
         }
         .navigationTitle("3105 Lite")
+        .onAppear { documentsFiles = app.documentsPatchFiles() }
         .fileImporter(
             isPresented: $showingImporter,
             allowedContentTypes: [.item],

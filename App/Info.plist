@@ -55,6 +55,7 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.patchlite.3105</string>
+				<string>com.qingtang.3106.patch-package</string>
 				<string>public.data</string>
 			</array>
 		</dict>
@@ -69,12 +70,13 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>3105 Patch Package</string>
+			<string>3105 / 3106 Patch Package</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
 					<string>3105</string>
+					<string>3106</string>
 				</array>
 			</dict>
 		</dict>

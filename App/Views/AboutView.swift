@@ -20,7 +20,7 @@ struct AboutView: View {
             }
 
             Section("Khả năng") {
-                Label("Đọc patch .3105 schema v1 (legacy) và v2", systemImage: "checkmark.circle")
+                Label("Đọc patch .3105 / .3106 schema v1, v2, v3", systemImage: "checkmark.circle")
                 Label("Patch có mật khẩu hoặc không có mật khẩu", systemImage: "checkmark.circle")
                 Label("Dán path đích, tự ghép relativePath + tên file", systemImage: "checkmark.circle")
                 Label("Sao lưu file gốc và khôi phục cực nhanh", systemImage: "checkmark.circle")

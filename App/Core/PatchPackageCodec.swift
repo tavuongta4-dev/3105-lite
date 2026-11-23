@@ -11,7 +11,7 @@ import Foundation
 enum PatchPackageCodec {
     private static let magic = Data("3105PATCH\0".utf8)
     private static let minimumVersion = 1
-    private static let maximumVersion = 2
+    private static let maximumVersion = 3
 
     private struct Envelope: Codable {
         let schemaVersion: Int

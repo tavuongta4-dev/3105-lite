@@ -131,6 +131,29 @@ final class AppState: ObservableObject {
         transactions = PatchFileEngine.loadTransactions()
     }
 
+    /// Patch files placed in the app's Documents folder (via Files app / Share).
+    /// This works even when another app owns the .3105/.3106 UTI and the share
+    /// sheet does not list 3105 Lite because 3106 owns the .3105 UTI.
+    func documentsPatchFiles() -> [URL] {
+        guard let documents = try? FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: false
+        ), let urls = try? FileManager.default.contentsOfDirectory(
+            at: documents,
+            includingPropertiesForKeys: [.contentModificationDateKey],
+            options: [.skipsHiddenFiles]
+        ) else { return [] }
+        return urls
+            .filter { ["3105", "3106"].contains($0.pathExtension.lowercased()) }
+            .sorted {
+                let a = (try? $0.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? .distantPast
+                let b = (try? $1.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? .distantPast
+                return a > b
+            }
+    }
+
     // MARK: Path history
 
     func usePath(_ path: String) {

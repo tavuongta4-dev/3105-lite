@@ -134,7 +134,7 @@ enum PatchError: LocalizedError, Equatable {
         case .unsupportedFormat:
             return "Đây không phải tệp patch .3105 hợp lệ (sai magic header)."
         case .unsupportedVersion:
-            return "Phiên bản patch không được hỗ trợ (chỉ hỗ trợ schema v1 và v2)."
+            return "Phiên bản patch không được hỗ trợ (hỗ trợ schema v1, v2 và v3)."
         case .invalidPasswordOrCorrupted:
             return "Sai mật khẩu hoặc tệp patch bị hỏng."
         case .keyDerivationFailed:

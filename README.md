@@ -2,7 +2,7 @@
 
 App iOS (SwiftUI) quản lý patch `.3105` theo hướng tối giản, lấy cảm hứng từ [3105](https://github.com/YangJiiii/3105) (GPL-3.0). Tập trung đúng 5 yêu cầu:
 
-1. Đọc tệp `.3105` legacy **schema v1** (có hoặc không có mật khẩu; cũng hỗ trợ v2).
+1. Đọc tệp `.3105` / `.3106` legacy **schema v1** (có hoặc không có mật khẩu; cũng hỗ trợ v2, v3 của 3106).
 2. Dán **path đích** để áp patch.
 3. **Khôi phục file gốc cực nhanh** (thường < 0,1 giây; hiển thị thời gian thực tế).
 4. **Lưu lịch sử path** đã dùng.
@@ -85,7 +85,12 @@ IPA được build **unsigned**. Dùng ESign / enterprise certificate để ký 
 - Tab **Ứng dụng** liệt kê dữ liệu ứng dụng theo **bundle ID** (giống 3105), có ô tìm kiếm, hai chế độ Application / App Group. Chạm vào một app để duyệt thư mục dữ liệu, rồi bấm **Dùng làm path đích**.
 - Nếu file `.3105` nằm trong trình duyệt Tệp của 3105: chọn file → **Chia sẻ** → chọn **3105 Lite** (app đã đăng ký mở tệp `.3105`).
 - Nếu vẫn lỗi, tab **Patch** có phần **Chẩn đoán tệp** hiện đuôi file, kích thước và 10 byte đầu để đối chiếu magic `3105PATCH\0`.
+- **Lưu ý quan trọng**: 3106 đăng ký làm chủ UTI `.3105`/`.3106`, nên nút Share có thể không hiện 3105 Lite. Cách chắc chắn nhất: trong Files app, copy tệp patch vào thư mục **3105 Lite** (mục “On My iPhone”), rồi mở app — phần **Tệp trong Documents** sẽ liệt kê và bạn chạm để import.
 - Trên iOS 17–18, quyền đọc container hệ thống phụ thuộc vào cách ký/entitlements; khi không đọc được, app vẫn liệt kê app đã cài và bạn dán path đích thủ công.
+
+### Vì sao tab Ứng dụng có thể vẫn trống
+
+Khác với 3106 (dùng 0day `bad_query`/`worse_query` hoặc kernel chain + **App Group entitlement** để đọc container), 3105 Lite không chứa exploit và không có cơ chế “pairing file”. Vì vậy trên thiết bị của bạn tab Ứng dụng có thể chỉ liệt kê app đã cài (không có path). Để có màn hình duyệt file thật như 3106, cần port toàn bộ chuỗi exploit + đổi bundle ID/App Group — mình có thể làm nếu bạn xác nhận, nhưng đó là thay đổi lớn.
 
 ## 4. Tạo patch mẫu để test
 
