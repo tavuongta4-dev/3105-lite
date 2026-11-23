@@ -208,6 +208,23 @@ enum SandboxAccess {
         case .badQuery:
             var pathC = clean.utf8CString.map { Int8($0) }
             handle = bad_query(&pathC, true, nil, false)
+            // On some 26.0-26.6.x builds containermanagerd refuses to issue a
+            // token through bad_query (-4 = no sandbox token) even though the
+            // signer gave us an App Group. The same binary carries worse_query,
+            // so use it as an in-place fallback instead of failing the grant.
+            if handle == -4, worse_query_app_group() != nil {
+                _ = worse_query_recover()
+                pathC = clean.utf8CString.map { Int8($0) }
+                handle = writable
+                    ? worse_query_grant_ex(&pathC, 1)
+                    : worse_query_grant(&pathC)
+                if handle == -5 || handle == -4, repairAccessCacheIfNeeded() {
+                    pathC = clean.utf8CString.map { Int8($0) }
+                    handle = writable
+                        ? worse_query_grant_ex(&pathC, 1)
+                        : worse_query_grant(&pathC)
+                }
+            }
         case .worseQuery:
             var pathC = clean.utf8CString.map { Int8($0) }
             // writable=true routes through grant_ex so a read-only token can
