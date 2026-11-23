@@ -8,3 +8,4 @@ build/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 .xcodegen/
 *.swiftpm/
+output/
