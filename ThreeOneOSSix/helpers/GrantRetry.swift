@@ -97,7 +97,7 @@ enum GrantRetry {
         switch code {
         case -1: return "sandbox.error.no_app_group"
         case -2, -3: return "sandbox.error.query_api"
-        case -4: return "sandbox.error.swap_failed"
+        case -4: return "sandbox.error.token"
         case -5, -6, -7: return "sandbox.error.token"
         case -8: return "sandbox.error.token_unopenable"
         case -9: return "sandbox.error.token_read_only"
