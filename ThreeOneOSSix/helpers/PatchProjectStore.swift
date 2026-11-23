@@ -345,6 +345,7 @@ final class PatchProjectStore: ObservableObject {
             summary: pending.summary,
             origin: pending.origin
         )
+        reload()
         isBusy = false
     }
 
@@ -372,10 +373,15 @@ final class PatchProjectStore: ObservableObject {
         }
         if summary.isPasswordProtected {
             guard let password else {
+                let savedURL = try PatchProjectLibrary.saveLockedPackage(
+                    data: data,
+                    summary: summary,
+                    existingURL: existingURL
+                )
                 return PendingUnlock(
                     data: data,
                     summary: summary,
-                    existingURL: existingURL,
+                    existingURL: savedURL,
                     origin: origin
                 )
             }
